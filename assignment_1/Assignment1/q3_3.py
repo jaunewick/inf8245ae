@@ -25,27 +25,23 @@ ridge_hyperparameter = 20 # You can change this value to get better results
 # Provide your code here ...
 scaler = StandardScaler()
 X_train = scaler.fit_transform(X_train)
-X_test = scaler.transform(X_test)
-
+y_train = scaler.fit_transform(y_train)
 y_train = y_train.flatten()
-y_test = y_test.flatten()
 
 training_losses_simple = []
+training_losses_ridge = []
+
 for epoch in range(num_epochs):
-    grad_w, grad_b = compute_gradient_simple(X_train, y_train, initial_w, initial_b)
     w_simple, b_simple = gradient_descent_regression(
         X_train, y_train,
         reg_type='simple',
         learning_rate=learning_rate,
         num_epochs=epoch
     )
-    y_hat = np.dot(X_train, w_simple) + b_simple
-    training_loss = rmse(y_train, y_hat)
+    y_hat_simple = np.dot(X_train, w_simple) + b_simple
+    training_loss = rmse(y_train, y_hat_simple)
     training_losses_simple.append(training_loss)
 
-training_losses_ridge = []
-for epoch in range(num_epochs):
-    grad_w, grad_b = compute_gradient_ridge(X_train, y_train, initial_w, initial_b, ridge_hyperparameter)
     w_ridge, b_ridge = gradient_descent_regression(
         X_train, y_train,
         reg_type='ridge',
@@ -53,11 +49,10 @@ for epoch in range(num_epochs):
         learning_rate=learning_rate,
         num_epochs=epoch
     )
-    y_hat = np.dot(X_train, w_ridge) + b_ridge
-    training_loss = rmse(y_train, y_hat)
+    y_hat_ridge = np.dot(X_train, w_ridge) + b_ridge
+    training_loss = rmse(y_train, y_hat_ridge)
     training_losses_ridge.append(training_loss)
 
-plt.figure(figsize=(12, 10))
 plt.plot(training_losses_simple, color='blue', alpha=0.5, label='Simple Linear Regression')
 plt.plot(training_losses_ridge, color='red', alpha=0.5, label=f'Ridge Regression (λ = {ridge_hyperparameter})')
 plt.title('Training Loss vs. Epoch')
