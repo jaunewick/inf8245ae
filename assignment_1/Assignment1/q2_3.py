@@ -17,14 +17,18 @@ kfolds = 5
 X_train_bias = data_matrix_bias(X_train)
 X_test_bias = data_matrix_bias(X_test)
 
-best_hyperparam, best_mean_squared_error, mean_squared_errors_list = cross_validation_linear_regression(kfolds, hyperparams, X_train_bias, y_train)
-
-best_lambda_index = hyperparams.tolist().index(best_hyperparam)
-start = max(best_lambda_index - 2, 0)
-stop = min(best_lambda_index + 3, len(hyperparams))
+best_hyperparam, best_mean_squared_error, mean_squared_errors_list = cross_validation_linear_regression(
+    kfolds,
+    hyperparams,
+    X_train_bias, y_train
+)
 
 print(f'Best hyperparameter λ value : {best_hyperparam}')
 print(f'Best RMSE value : {best_mean_squared_error}')
+
+best_lambda_index = hyperparams.tolist().index(best_hyperparam)
+start = max(best_lambda_index - 7, 0)
+stop = min(best_lambda_index + 4, len(hyperparams))
 
 plt.figure(figsize=(12, 10))
 
