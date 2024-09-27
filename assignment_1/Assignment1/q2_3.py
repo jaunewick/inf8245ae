@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 
 from q2_2 import cross_validation_linear_regression
+from q1_1 import data_matrix_bias
 
 # Define a range of alpha values for hyperparameter search
 hyperparams = np.logspace(-4, 4, 50)
@@ -13,3 +14,23 @@ y_test = pd.read_csv('Data/y_test.csv').values
 kfolds = 5
 
 # Write your code here ...
+X_train_bias = data_matrix_bias(X_train)
+X_test_bias = data_matrix_bias(X_test)
+
+best_hyperparam, best_mean_squared_error, mean_squared_errors_list = cross_validation_linear_regression(kfolds, hyperparams, X_train_bias, y_train)
+
+best_lambda_index = hyperparams.tolist().index(best_hyperparam)
+start = max(best_lambda_index - 2, 0)
+stop = min(best_lambda_index + 3, len(hyperparams))
+
+print(f'Best hyperparameter λ value : {best_hyperparam}')
+print(f'Best RMSE value : {best_mean_squared_error}')
+
+plt.figure(figsize=(12, 10))
+
+plt.plot(hyperparams[start:stop], mean_squared_errors_list[start:stop], color='red', label='RMSE')
+plt.title('Ridge Regression hyperparameter λ value vs RMSE')
+plt.xlabel('hyperparamter λ value')
+plt.ylabel('RMSE')
+
+plt.show()

@@ -15,8 +15,8 @@ y_test = pd.read_csv('Data/y_test.csv').values
 # Write your code here:
 
 # Find the optimal parameters only using the training set
-X_train_with_bias = data_matrix_bias(X_train)
-w_star = linear_regression_optimize(y_train, X_train_with_bias)
+X_train_bias = data_matrix_bias(X_train)
+w_star = linear_regression_optimize(y_train, X_train_bias)
 
 X_test_with_bias = data_matrix_bias(X_test)
 y_hat = linear_regression_predict(X_test_with_bias, w_star)
