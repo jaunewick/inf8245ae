@@ -15,7 +15,9 @@ def ridge_regression_optimize(y: np.ndarray, X: np.ndarray, hyperparameter: floa
         np.ndarray: Optimal parameters (w), Numpy array of shape [features, 1].
     """
     # Write your code here
+    X_transpose = X.T
+    identity_mat = np.eye(X.shape[1])
+
+    w = np.dot(np.dot(np.linalg.inv(np.add(np.dot(X_transpose, X), hyperparameter * identity_mat)), X_transpose), y)
 
     return w
-
-
