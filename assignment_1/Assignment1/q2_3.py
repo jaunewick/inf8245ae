@@ -27,11 +27,9 @@ print(f'Best hyperparameter λ value : {best_hyperparam}')
 print(f'Best RMSE value : {best_mean_squared_error}')
 
 best_lambda_index = hyperparams.tolist().index(best_hyperparam)
-start = max(best_lambda_index - 7, 0)
-stop = min(best_lambda_index + 4, len(hyperparams))
 
 plt.figure(figsize=(12, 10))
-plt.plot(hyperparams[start:stop], mean_squared_errors_list[start:stop], color='red', alpha=0.5, label='RMSE')
+plt.plot(hyperparams, mean_squared_errors_list, color='red', alpha=0.5, label='RMSE')
 plt.title('RMSE vs. Ridge Regression hyperparameter λ value')
 plt.ylabel('RMSE')
 plt.xlabel('hyperparamter λ value')
