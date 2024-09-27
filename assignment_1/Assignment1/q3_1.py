@@ -16,12 +16,11 @@ def compute_gradient_simple(X, y, w, b):
         grad_b (float): Gradient with respect to bias.
     """
     # Write your code here ...
-    n = X.shape[0]
-    y_pred = np.dot(X, w) + b
+    y_hat = np.dot(X, w) + b
     X_transpose = X.T
 
-    grad_w = np.dot(X_transpose, np.subtract(y_pred, y))
-    grad_b = np.sum(np.subtract(y_pred, y))
+    grad_w = np.dot(X_transpose, np.subtract(y_hat, y))
+    grad_b = np.sum(np.subtract(y_hat, y))
 
     return grad_w, grad_b
 
@@ -42,11 +41,10 @@ def compute_gradient_ridge(X, y, w, b, lambda_reg):
         grad_b (float): Gradient with respect to bias.
     """
     # Write your code here ...
-    n = X.shape[0]
-    y_pred = np.dot(X, w) + b
+    y_hat = np.dot(X, w) + b
     X_transpose = X.T
 
-    grad_w = np.dot(X_transpose, np.subtract(y_pred, y)) + 2 * lambda_reg * w
-    grad_b = np.sum(np.subtract(y_pred, y))
+    grad_w = np.dot(X_transpose, np.subtract(y_hat, y)) + 2 * lambda_reg * w
+    grad_b = np.sum(np.subtract(y_hat, y))
 
     return grad_w, grad_b

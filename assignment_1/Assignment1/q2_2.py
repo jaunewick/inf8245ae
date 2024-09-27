@@ -39,9 +39,9 @@ def cross_validation_linear_regression(k_folds: int, hyperparameters: List[float
             y_val = y[start:stop]
 
             w_star = ridge_regression_optimize(y_train, X_train, hyperparameter)
-            y_pred = linear_regression_predict(X_val, w_star)
+            y_hat = linear_regression_predict(X_val, w_star)
 
-            rmse_value = rmse(y_val, y_pred)
+            rmse_value = rmse(y_val, y_hat)
             rmse_record.append(rmse_value)
 
         average_rmse = np.mean(rmse_record)
