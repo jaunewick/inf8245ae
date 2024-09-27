@@ -57,6 +57,7 @@ for epoch in range(num_epochs):
     training_loss = rmse(y_train, y_hat)
     training_losses_ridge.append(training_loss)
 
+plt.figure(figsize=(12, 10))
 plt.plot(training_losses_simple, color='blue', alpha=0.5, label='Simple Linear Regression')
 plt.plot(training_losses_ridge, color='red', alpha=0.5, label=f'Ridge Regression (λ = {ridge_hyperparameter})')
 plt.title('Training Loss vs. Epoch')

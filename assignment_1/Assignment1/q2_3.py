@@ -31,7 +31,6 @@ start = max(best_lambda_index - 7, 0)
 stop = min(best_lambda_index + 4, len(hyperparams))
 
 plt.figure(figsize=(12, 10))
-
 plt.plot(hyperparams[start:stop], mean_squared_errors_list[start:stop], color='red', alpha=0.5, label='RMSE')
 plt.title('RMSE vs. Ridge Regression hyperparameter λ value')
 plt.ylabel('RMSE')
