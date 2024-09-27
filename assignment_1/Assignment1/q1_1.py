@@ -13,6 +13,8 @@ def data_matrix_bias(X: np.ndarray) -> np.ndarray:
     """
 
     # Write your code here ...
+    bias_col = np.ones((X.shape[0], 1))
+    X_bias = np.concatenate((bias_col, X), axis=1)
 
     return X_bias
 
@@ -29,6 +31,8 @@ def linear_regression_predict(X: np.ndarray, w: np.ndarray) -> np.ndarray:
         np.ndarray: Numpy array of shape [observations, 1]
     """
     # Write your code here ...
+    y = np.dot(X, w)
+
     return y
 
 
@@ -45,6 +49,8 @@ def linear_regression_optimize(y: np.ndarray, X: np.ndarray) -> np.ndarray:
     """
 
     # Write your answer here ....
+    X_transpose = X.T
+    w = np.dot(np.dot(np.linalg.inv(np.dot(X_transpose, X)), X_transpose), y)
 
     return w
 
@@ -62,5 +68,7 @@ def rmse(y: np.ndarray, y_hat: np.ndarray) -> float:
     float: The RMSE value.
     """
     # Write your code here ...
+    rmse_err = np.sqrt(np.mean(np.square(np.subtract(y, y_hat))))
+
     return rmse_err
 
