@@ -20,7 +20,7 @@ initial_b = 0.0
 
 learning_rate = 0.00005  # You can change this value to get better results
 num_epochs = 1000
-ridge_hyperparameter = 10 # You can change this value to get better results
+ridge_hyperparameter = 20 # You can change this value to get better results
 
 # Provide your code here ...
 scaler = StandardScaler()
@@ -58,10 +58,10 @@ for epoch in range(num_epochs):
     training_losses_ridge.append(training_loss)
 
 plt.plot(training_losses_simple, color='blue', alpha=0.5, label='Simple Linear Regression')
-plt.plot(training_losses_ridge, color='red', alpha=0.5, label='Ridge Regression')
-plt.title('Epoch vs Training Loss')
-plt.xlabel('Epoch')
+plt.plot(training_losses_ridge, color='red', alpha=0.5, label=f'Ridge Regression (λ = {ridge_hyperparameter})')
+plt.title('Training Loss vs. Epoch')
 plt.ylabel('Training Loss')
+plt.xlabel('Epoch')
 plt.legend()
 plt.show()
 
