@@ -21,5 +21,17 @@ def gradient_descent_regression(X, y, reg_type='simple', hyperparameter=0.0, lea
     """
 
     # Write your code here ...
+    SIMPLE = 'simple'
+    m = X.shape[1]
+    w, b = np.zeros(m), 0.0
+
+    for _ in range(num_epochs):
+        if reg_type.lower() == SIMPLE:
+            grad_w, grad_b = compute_gradient_simple(X, y, w, b)
+        else:
+            grad_w, grad_b = compute_gradient_ridge(X, y, w, b, hyperparameter)
+
+        w -= learning_rate * grad_w
+        b -= learning_rate * grad_b
 
     return w, b
