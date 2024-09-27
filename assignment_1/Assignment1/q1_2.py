@@ -22,8 +22,8 @@ X_test_with_bias = data_matrix_bias(X_test)
 y_hat = linear_regression_predict(X_test_with_bias, w_star)
 
 # Report the RMSE and Plot the data on the test set
-rmse_val = rmse(y_test, y_hat)
-print(f'RMSE value : {rmse_val}')
+rmse_value = rmse(y_test, y_hat)
+print(f'RMSE value : {rmse_value}')
 
 experience_col = X_test[:,0]
 test_score_col = X_test[:,1]
