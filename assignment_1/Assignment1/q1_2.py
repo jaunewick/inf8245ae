@@ -46,5 +46,5 @@ plt.xlabel('Test Score')
 plt.ylabel('Salary')
 plt.legend()
 
-plt.tight_layout()
+plt.tight_layout(w_pad=4)
 plt.show()
