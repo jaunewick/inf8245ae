@@ -3,7 +3,7 @@ import scipy
 
 from utils import x_train, y_train, x_test, y_test
 
-import matplotlib.pyplot as plt
+# import matplotlib.pyplot as plt
 
 def preprocess_data(data: np.ndarray, max_val=None) -> np.ndarray:
     """
@@ -244,15 +244,15 @@ if __name__ == "__main__":
     # test_accuracy = knn_classifier_cosine(train_set, train_labels, test_set, test_labels, k=best_k_cosine)
     # print(test_accuracy)
 
-    val_accuracy_per_k_cosine = {2: 88.81, 3: 90.08}
-    k_values = list(val_accuracy_per_k_cosine.keys())
-    accuracies = list(val_accuracy_per_k_cosine.values())
+    # val_accuracy_per_k_cosine = {2: 88.81, 3: 90.08}
+    # k_values = list(val_accuracy_per_k_cosine.keys())
+    # accuracies = list(val_accuracy_per_k_cosine.values())
 
-    plt.figure(figsize=(8, 6))
-    plt.plot(k_values, accuracies, marker='o', linestyle='-', color='blue')
-    plt.title('Validation Accuracy vs. Value of k with Cosine Distance')
-    plt.xlabel('Value of k')
-    plt.ylabel('Validation Accuracy (%)')
-    plt.xticks(k_values)
-    plt.grid(True)
-    plt.show()
+    # plt.figure(figsize=(8, 6))
+    # plt.plot(k_values, accuracies, marker='o', linestyle='-', color='blue')
+    # plt.title('Validation Accuracy vs. Value of k with Cosine Distance')
+    # plt.xlabel('Value of k')
+    # plt.ylabel('Validation Accuracy (%)')
+    # plt.xticks(k_values)
+    # plt.grid(True)
+    # plt.show()
