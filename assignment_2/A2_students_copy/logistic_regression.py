@@ -71,8 +71,9 @@ class LogisticRegressionModel:
         # HINT: Look into the documentation of np.matmul
 
         ### Implement here
-        y = np.matmul(x, self.W) + self.b
-        x = softmax(y)
+        h = np.matmul(x, self.W) + self.b
+        y_hat = softmax(h)
+        x = y_hat
 
         return x
 
@@ -110,7 +111,6 @@ def nll_loss(prediction: np.ndarray, target: np.ndarray) -> float:
     ### Implement here
     for i in range(batch_size):
         loss += -np.log(prediction[i, target[i]])
-
     loss /= batch_size
 
     return loss
@@ -135,6 +135,12 @@ def compute_gradients(x: np.ndarray, prediction: np.ndarray, target: np.ndarray)
     grad_b = np.zeros(prediction.shape[1])
 
     ### Implement here
+    for i in range(batch_size):
+        grad_W += np.outer(x[i], prediction[i] - (np.arange(prediction.shape[1]) == target[i]))
+        grad_b += prediction[i] - (np.arange(prediction.shape[1]) == target[i])
+
+    grad_W /= batch_size
+    grad_b /= batch_size
 
     return grad_W, grad_b
 
@@ -160,8 +166,14 @@ def validation(model: Type[LogisticRegressionModel], val_set: np.ndarray, val_la
     batch_count = 0
 
     for batch, labels in iterate_samples(batch_size, val_set, val_labels, False):
-        ### Implement here
-        continue
+        predictions = model(batch)
+
+        batch_loss = nll_loss(predictions, labels)
+    
+        total_loss += batch_loss
+        correct_preds += np.sum(np.argmax(predictions, axis=1) == labels)
+        sample_count += labels.shape[0]
+        batch_count += 1
 
     validation_loss = total_loss / batch_count
     validation_acc = correct_preds / sample_count
