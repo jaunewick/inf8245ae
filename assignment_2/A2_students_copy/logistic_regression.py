@@ -71,7 +71,9 @@ class LogisticRegressionModel:
         # HINT: Look into the documentation of np.matmul
 
         ### Implement here
-        
+        y = np.matmul(x, self.W) + self.b
+        x = softmax(y)
+
         return x
 
 def softmax(x: np.ndarray) -> np.ndarray:
@@ -84,8 +86,9 @@ def softmax(x: np.ndarray) -> np.ndarray:
     Returns:
         np.ndarray: the softmax-ed input
     """
-    
+
     ### Implement here
+    x = np.exp(x) / np.sum(np.exp(x), axis=1).reshape(-1, 1)
 
     return x
 
@@ -105,6 +108,10 @@ def nll_loss(prediction: np.ndarray, target: np.ndarray) -> float:
     loss = 0
 
     ### Implement here
+    for i in range(batch_size):
+        loss += -np.log(prediction[i, target[i]])
+
+    loss /= batch_size
 
     return loss
 
