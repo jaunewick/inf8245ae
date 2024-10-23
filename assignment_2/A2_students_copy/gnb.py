@@ -32,6 +32,12 @@ def gnb_fit_classifier(X: np.ndarray, Y: np.ndarray, smoothing: float=1e-3) -> t
     num_classes = len(labels)
 
     ### Implement here
+    for label in labels:
+        X_label = X[Y == label]
+
+        prior_probs.append(len(X_label) / len(X))
+        means.append(np.mean(X_label, axis=0))
+        vars.append(np.var(X_label, axis=0) + smoothing)
 
     return prior_probs, means, vars
 
@@ -58,6 +64,11 @@ def gnb_predict(X: np.ndarray, prior_probs: typing.List[np.ndarray],
     # think about which function to use to prevent underflow issues
 
     ### Implement here
+    for i in range(num_classes):
+        log_likelihood = multivariate_normal.logpdf(X, mean=means[i], cov=vars[i])
+        log_posterior = log_likelihood + np.log(prior_probs[i])
+
+        all_preds[:, i] = log_posterior
 
     # for each prediction in `all_preds`, get the label the label that occurs most frequently
     preds = np.argmax(all_preds, axis=1)
@@ -80,7 +91,11 @@ def gnb_classifier(train_set, train_labels, test_set, test_labels, smoothing=1e-
 
     num_classes = len(np.unique(y_train))
     ### Implement here. Remember, it is a better coding practice to calculate the number of classes in your data programatically instead of hard coding here.
-    
+
+    prior_probs, means, vars = gnb_fit_classifier(train_set, train_labels, smoothing)
+    preds = gnb_predict(test_set, prior_probs, means, vars, num_classes)
+
+    accuracy = np.mean(preds == test_labels) * 100.0
 
     return accuracy
 
