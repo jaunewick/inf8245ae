@@ -222,7 +222,6 @@ def train_one_epoch(model: Type[LogisticRegressionModel],
     for x_batch, targets in iterate_samples(batch_size, train_set, train_labels, True):
         step_count += 1
         ### Implement here
-        step_count += 1
         preds = model(x_batch)
 
         loss = nll_loss(preds, targets)
@@ -353,38 +352,38 @@ if __name__ == "__main__":
     W_initial_weights = np.random.normal(0.5, 0.1, (784, 15))
 
     # train a logistic regression model
-    # print("Training the model...")
-    # train_loss_bs100, train_accuracy_bs100, train_step_bs100, val_loss_bs100, \
-    #     val_accuracy_bs100, val_step_bs100 = \
-    #         logistic_fit_classifier(num_epochs=4, batch_size=100, learning_rate=0.1,
-    #         validation_every_x_step=10, W_initial_weights=W_initial_weights)
+    print("Training the model...")
+    train_loss_bs100, train_accuracy_bs100, train_step_bs100, val_loss_bs100, \
+        val_accuracy_bs100, val_step_bs100 = \
+            logistic_fit_classifier(num_epochs=4, batch_size=100, learning_rate=0.1,
+            validation_every_x_step=10, W_initial_weights=W_initial_weights)
 
-    # print(f"Train accuracy final: {train_accuracy_bs100[-1] * 100.0}, Validation accuracy: {val_accuracy_bs100[-1] * 100.0}")
-
-    # fig = plt.figure()
-    # plt.plot(train_step_bs100, train_accuracy_bs100, label='train_accuracy')
-    # plt.plot(val_step_bs100, val_accuracy_bs100, label='val_accuracy')
-    # plt.xlabel("Num Steps", fontsize=14)
-    # plt.ylabel("Val Acc.", fontsize=14)
-    # plt.legend()
-    # plt.show()
-
-
-    # Uncomment the following code and add your best learning rate
-    best_batch_size = 100
-    best_lr = 0.1
-
-    # Test the model!
-    print("Testing the model...")
-    _ , _ , _ , \
-        test_loss, test_accuracy, test_step = test_model(num_epochs=100, batch_size=best_batch_size,
-                                                            learning_rate=best_lr, validation_every_x_step=100, W_initial_weights=W_initial_weights)
+    print(f"Train accuracy final: {train_accuracy_bs100[-1] * 100.0}, Validation accuracy: {val_accuracy_bs100[-1] * 100.0}")
 
     fig = plt.figure()
-    plt.plot(test_step, test_accuracy, label=f"bs={best_batch_size}, lr={best_lr}")
-    plt.title('Test Accuracy')
-    plt.ylim(0.6, 0.95)
+    plt.plot(train_step_bs100, train_accuracy_bs100, label='train_accuracy')
+    plt.plot(val_step_bs100, val_accuracy_bs100, label='val_accuracy')
+    plt.xlabel("Num Steps", fontsize=14)
+    plt.ylabel("Val Acc.", fontsize=14)
     plt.legend()
     plt.show()
 
-    print(f"Best test accuracy: {test_accuracy[-1] * 100.0} %")
+
+    # Uncomment the following code and add your best learning rate
+    # best_batch_size = 100
+    # best_lr = 0.1
+
+    # # Test the model!
+    # print("Testing the model...")
+    # _ , _ , _ , \
+    #     test_loss, test_accuracy, test_step = test_model(num_epochs=100, batch_size=best_batch_size,
+    #                                                         learning_rate=best_lr, validation_every_x_step=100, W_initial_weights=W_initial_weights)
+
+    # fig = plt.figure()
+    # plt.plot(test_step, test_accuracy, label=f"bs={best_batch_size}, lr={best_lr}")
+    # plt.title('Test Accuracy')
+    # plt.ylim(0.6, 0.95)
+    # plt.legend()
+    # plt.show()
+
+    # print(f"Best test accuracy: {test_accuracy[-1] * 100.0} %")
