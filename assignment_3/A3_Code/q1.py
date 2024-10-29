@@ -34,6 +34,9 @@ def data_exploration(X, y):
     Output: (n_records, n_subscriber, subscriber_percent) -> Tuple of integers
     """
     # TODO : write your code here
+    n_records = len(y)
+    n_subscriber = int((y == 'yes').sum().iloc[0])
+    subscriber_percent = n_subscriber / n_records * 100
 
     return n_records, n_subscriber, subscriber_percent
 
