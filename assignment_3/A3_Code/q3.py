@@ -12,13 +12,13 @@ from q2 import data_splits, normalize_features
 param_grid_decision_tree = {
     'criterion': ['gini', 'entropy'],
     'max_depth': [None, 5, 10],
-    'min_samples_leaf': [1, 2],
+    'min_samples_leaf': [1],
     'max_leaf_nodes': [None, 5, 10],
 }
 
 param_grid_random_forest = {
     'n_estimators': [5, 10, 30],
-    'max_depth': [None, 5],
+    'max_depth': [None, 5, 10],
     'bootstrap': [True, False],
 }
 
