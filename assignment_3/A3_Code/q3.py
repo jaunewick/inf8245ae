@@ -12,22 +12,22 @@ from q2 import data_splits, normalize_features
 param_grid_decision_tree = {
     'criterion': ['gini', 'entropy'],
     'max_depth': [None, 5, 10],
-    'min_samples_leaf': [1, 2],
+    'min_samples_leaf': [1],
     'max_leaf_nodes': [None, 5],
 }
 
 param_grid_random_forest = {
     'n_estimators': [5, 10, 30],
-    'max_depth': [None, 5, 10],
+    'max_depth': [None, 5],
     'bootstrap': [True, False],
 }
 
 param_grid_svm = {
     'kernel': ['linear', 'poly', 'rbf'],
     'shrinking': [True, False],
-    'C': [0.1, 1],
-    'tol': [1e-3, 1e-4],
-    'gamma': ['scale', 'auto'],
+    'C': [0.1],
+    'tol': [1e-4],
+    'gamma': ['auto'],
 }
 
 # Step 2: Initialize classifiers with random_state=0
@@ -36,7 +36,7 @@ random_forest = RandomForestClassifier(random_state=0)
 svm = SVC(random_state=0)
 
 # Step 3: Create a scorer using F-beta score with beta=0.5
-scorer = make_scorer(fbeta_score, beta=0.5)
+scorer = 'accuracy'
 
 
 # Step 4: Perform grid search for each model using 9-fold StratifiedKFold cross-validation
