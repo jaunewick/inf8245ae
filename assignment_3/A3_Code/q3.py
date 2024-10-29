@@ -12,8 +12,8 @@ from q2 import data_splits, normalize_features
 param_grid_decision_tree = {
     'criterion': ['gini', 'entropy'],
     'max_depth': [None, 5, 10],
-    'min_samples_leaf': [1],
-    'max_leaf_nodes': [None, 5],
+    'min_samples_leaf': [1, 2],
+    'max_leaf_nodes': [None, 5, 10],
 }
 
 param_grid_random_forest = {
@@ -25,7 +25,7 @@ param_grid_random_forest = {
 param_grid_svm = {
     'kernel': ['linear', 'poly', 'rbf'],
     'shrinking': [True, False],
-    'C': [0.1],
+    'C': [0.1, 1],
     'tol': [1e-4],
     'gamma': ['auto'],
 }
