@@ -48,6 +48,11 @@ def feature_encoding(X):
     """
     non_numerical_columns_names = X.select_dtypes(exclude=['number']).columns
     # TODO : write encoding here
+    label_encoders = {}
+
+    for col in non_numerical_columns_names:
+        label_encoders[col] = LabelEncoder()
+        X[col] = label_encoders[col].fit_transform(X[col])
 
     return X
 
@@ -59,6 +64,7 @@ def encode_label(y):
     Output: y: labels_int (pd.DataFrame) with shape = (45211, 1)
     """
     # TODO : write encoding here
+    y = y.replace({'yes': 1, 'no': 0})
 
     return y
 
