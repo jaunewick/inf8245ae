@@ -16,6 +16,7 @@ def data_splits(X, y):
     """
     # Use random_state = 0 in the train_test_split
     # TODO write data split here
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=0, shuffle=True)
 
     return X_train, X_test, y_train, y_test
 
@@ -27,6 +28,9 @@ def normalize_features(X_train, X_test):
     Output: X_train_scaled, X_test_scaled (pd.DataFrame) the same shape of X_train and X_test
     """
     # TODO write normalization here
+    scaler = MinMaxScaler()
+    X_train_scaled = scaler.fit_transform(X_train)
+    X_test_scaled = scaler.transform(X_test)
 
     return X_train_scaled, X_test_scaled
 
@@ -40,13 +44,13 @@ def train_model(model_name, X_train_scaled, y_train):
     output: cls: the trained model
     '''
     if model_name == 'Decision Tree':
-        cls = ... # TODO call classifier here
+        cls = DecisionTreeClassifier(random_state=0)
     elif model_name == 'Random Forest':
-        cls = ... # TODO call classifier here
+        cls = RandomForestClassifier(random_state=0)
     elif model_name == 'SVM':
-        cls = ... # TODO call classifier here
+        cls = SVC(random_state=0)
 
-    ... # TODO trian the model
+    cls.fit(X_train_scaled, y_train)
 
     return cls
 
@@ -77,27 +81,26 @@ def eval_model(trained_models, X_train, X_test, y_train, y_test):
     # Loop through each trained model
     for model_name, model in trained_models.items():
         # Predictions for training and testing sets
-        y_train_pred = ... # TODO predict y
-        y_test_pred = . .. # TODO predict y
-
+        y_train_pred = model.predict(X_train)
+        y_test_pred = model.predict(X_test)
         # Calculate accuracy
-        train_accuracy = ... # TODO find accuracy
-        test_accuracy = ... # TODO find accuracy
+        train_accuracy = accuracy_score(y_train, y_train_pred)
+        test_accuracy = accuracy_score(y_test, y_test_pred)
 
         # Calculate F1-score
-        train_f1 = ... # TODO find f1_score
-        test_f1 = ... # TODO find f1_score
+        train_f1 = f1_score(y_train, y_train_pred)
+        test_f1 = f1_score(y_test, y_test_pred)
 
         # Store predictions
-        y_train_pred_dict[model_name] = ... # TODO
-        y_test_pred_dict[model_name] = ... # TODO
+        y_train_pred_dict[model_name] = y_train_pred
+        y_test_pred_dict[model_name] = y_test_pred
 
         # Store the evaluation metrics
         evaluation_results[model_name] = {
-            'Train Accuracy': ... # TODO ,
-            'Test Accuracy': ...  # TODO ,
-            'Train F1 Score': ... # TODO ,
-            'Test F1 Score': ...  # TODO
+            'Train Accuracy': train_accuracy,
+            'Test Accuracy': test_accuracy,
+            'Train F1 Score': train_f1,
+            'Test F1 Score': test_f1
         }
 
     # Return the evaluation results
@@ -118,34 +121,38 @@ def report_model(y_train, y_test, y_train_pred_dict, y_test_pred_dict):
         print(f"\nModel: {model_name}")
 
         # Predictions for training and testing sets
-        y_train_pred = ... # TODO compelete it
-        y_test_pred = ... # TODO compelete it
+        y_train_pred = y_train_pred_dict[model_name]
+        y_test_pred = y_test_pred_dict[model_name]
 
         # Print classification report for training set
         print("\nTraining Set Classification Report:")
         # TODO write Classification Report train
+        print(classification_report(y_train, y_train_pred))
 
         # Print confusion matrix for training set
         print("Training Set Confusion Matrix:")
         # TODO write Confusion Matrix train
+        print(confusion_matrix(y_train, y_train_pred))
 
         # Print classification report for testing set
         print("\nTesting Set Classification Report:")
         # TODO write Classification Report test
+        print(classification_report(y_test, y_test_pred))
 
         # Print confusion matrix for testing set
         print("Testing Set Confusion Matrix:")
         # TODO write Confusion Matrix test
+        print(confusion_matrix(y_test, y_test_pred))
 
 
 
-X, y = ... # TODO call data preprocessing from q1
-X_train, X_test, y_train, y_test = ... # TODO split data
-X_train_scaled, X_test_scaled = ... # TODO normalize data
+X, y = data_preprocessing()
+X_train, X_test, y_train, y_test = data_splits(X, y)
+X_train_scaled, X_test_scaled = normalize_features(X_train, X_test)
 
-cls_decision_tree = ... # TODO train the model
-cls_randomforest = ... # TODO train the model
-cls_svm = ... # TODO train the model
+cls_decision_tree = train_model('Decision Tree', X_train_scaled, y_train)
+cls_randomforest = train_model('Random Forest', X_train_scaled, y_train)
+cls_svm = train_model('SVM', X_train_scaled, y_train)
 
 # Define a dictionary of model name and their trained model
 trained_models = {
