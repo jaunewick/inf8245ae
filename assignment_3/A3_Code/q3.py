@@ -10,22 +10,22 @@ from q2 import data_splits, normalize_features
 # Step 1: Create hyperparameter grids for each model
 # TODO fill out below dictionaries with reasonable values
 param_grid_decision_tree = {
-    'criterion': ['gini', 'entropy', 'log_loss'],
-    'max_depth': [None, 5, 10, 20, 30, 40],
-    'min_samples_leaf': [1, 2, 4, 8, 16],
-    'max_leaf_nodes': [None, 5, 10, 20, 30, 40],
+    'criterion': ['gini', 'entropy'],
+    'max_depth': [None, 5, 10],
+    'min_samples_leaf': [1, 2],
+    'max_leaf_nodes': [None, 5],
 }
 
 param_grid_random_forest = {
-    'n_estimators': [10, 50, 100, 200],
-    'max_depth': [None, 5, 10, 15, 20],
+    'n_estimators': [5, 10, 30],
+    'max_depth': [None, 5, 10],
     'bootstrap': [True, False],
 }
 
 param_grid_svm = {
-    'kernel': ['linear', 'poly', 'rbf', 'sigmoid', 'precomputed'],
+    'kernel': ['linear', 'poly', 'rbf'],
     'shrinking': [True, False],
-    'C': [0.1, 1, 10],
+    'C': [0.1, 1],
     'tol': [1e-3, 1e-4],
     'gamma': ['scale', 'auto'],
 }
