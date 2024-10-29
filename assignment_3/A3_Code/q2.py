@@ -1,5 +1,5 @@
 from sklearn.model_selection import train_test_split
-from q1_question import data_preprocessing
+from q1 import data_preprocessing
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.ensemble import RandomForestClassifier
