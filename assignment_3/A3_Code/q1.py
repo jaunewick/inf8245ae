@@ -36,7 +36,7 @@ def data_exploration(X, y):
     # TODO : write your code here
     n_records = len(y)
     n_subscriber = int((y == 'yes').sum().iloc[0])
-    subscriber_percent = n_subscriber / n_records * 100
+    subscriber_percent = (n_subscriber / n_records) * 100
 
     return n_records, n_subscriber, subscriber_percent
 
@@ -48,11 +48,11 @@ def feature_encoding(X):
     """
     non_numerical_columns_names = X.select_dtypes(exclude=['number']).columns
     # TODO : write encoding here
-    label_encoders = {}
+    le = {}
 
     for col in non_numerical_columns_names:
-        label_encoders[col] = LabelEncoder()
-        X[col] = label_encoders[col].fit_transform(X[col])
+        le[col] = LabelEncoder()
+        X[col] = le[col].fit_transform(X[col])
 
     return X
 

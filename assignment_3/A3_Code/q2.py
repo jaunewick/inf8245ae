@@ -29,6 +29,7 @@ def normalize_features(X_train, X_test):
     """
     # TODO write normalization here
     scaler = MinMaxScaler()
+
     X_train_scaled = scaler.fit_transform(X_train)
     X_test_scaled = scaler.transform(X_test)
 
