@@ -3,11 +3,11 @@ from sklearn.model_selection import GridSearchCV, StratifiedKFold
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.svm import SVC
-from sklearn.metrics import accuracy_score
+# from sklearn.metrics import accuracy_score
 from q1 import data_preprocessing
 from q2 import data_splits, normalize_features
 
-from matplotlib import pyplot as plt
+# from matplotlib import pyplot as plt
 
 # Step 1: Create hyperparameter grids for each model
 # TODO fill out below dictionaries with reasonable values
@@ -95,72 +95,59 @@ grid_svm, best_params_svm, best_score_svm = perform_grid_search(
 ) # TODO
 
 
+# Code for Report Section
 
-# # # Code for Report Section
-# accuracy_dict_dt = {
-#     'max_depth': [],
-#     'accuracy': []
-# }
+# def plot_accuracy(model, X_train, y_train, hyperparameter, values, title, is_none=False):
+#     accuracies = []
+#     x_labels = []
 
-# for max_depth in [None, 5, 10]:
-#     decision_tree = DecisionTreeClassifier(max_depth=max_depth, random_state=0)
-#     decision_tree.fit(X_train_scaled, y_train)
-#     y_pred = decision_tree.predict(X_test_scaled)
-#     accuracy = accuracy_score(y_test, y_pred)
-#     accuracy_dict_dt['max_depth'].append(max_depth)
-#     accuracy_dict_dt['accuracy'].append(accuracy)
+#     for value in values:
+#         model.set_params(**{hyperparameter: value})
+#         model.fit(X_train, y_train)
+#         y_pred_train = model.predict(X_train)
+#         accuracy = accuracy_score(y_train, y_pred_train)
+#         accuracies.append(accuracy)
+#         x_labels.append(str(value) if is_none and value is None else value)
 
-# plt.plot(accuracy_dict_dt['max_depth'], accuracy_dict_dt['accuracy'], 'o-')
-# plt.xlabel('max_depth')
-# plt.ylabel('accuracy')
-# plt.title('Decision Tree accuracy vs. max_depth')
-# plt.grid()
-# plt.show()
+#     plt.figure()
+#     plt.plot(range(len(values)), accuracies, marker='o')
+#     plt.xticks(range(len(values)), x_labels)
+#     plt.title(title)
+#     plt.xlabel(hyperparameter)
+#     plt.ylabel('Training Accuracy')
+#     plt.grid(True)
+#     plt.show()
 
+#     return accuracies
 
-# accuracy_dict_rf = {
-#     'n_estimators': [],
-#     'accuracy': []
-# }
+# decision_tree_accuracies = plot_accuracy(
+#     decision_tree,
+#     X_train_scaled,
+#     y_train,
+#     'max_depth',
+#     [None, 5, 10],
+#     "Decision Tree: Effect of max_depth on Accuracy",
+#     is_none=True
+# )
 
-# for n_estimators in [5, 10, 30]:
-#     random_forest = RandomForestClassifier(n_estimators=n_estimators, random_state=0)
-#     random_forest.fit(X_train_scaled, y_train)
-#     y_pred = random_forest.predict(X_test_scaled)
-#     accuracy = accuracy_score(y_test, y_pred)
-#     accuracy_dict_rf['n_estimators'].append(n_estimators)
-#     accuracy_dict_rf['accuracy'].append(accuracy)
+# random_forest_accuracies = plot_accuracy(
+#     random_forest,
+#     X_train_scaled,
+#     y_train,
+#     'n_estimators',
+#     [5, 10, 30],
+#     "Random Forest: Effect of n_estimators on Accuracy"
+# )
 
-# plt.plot(accuracy_dict_rf['n_estimators'], accuracy_dict_rf['accuracy'], 'o-')
-# plt.xlabel('n_estimators')
-# plt.ylabel('accuracy')
-# plt.title('Random Forest accuracy vs. n_estimators')
-# plt.grid()
-# plt.show()
+# svm_accuracies = plot_accuracy(
+#     svm,
+#     X_train_scaled,
+#     y_train,
+#     'kernel',
+#     ['linear', 'poly', 'rbf'],
+#     "SVM: Effect of kernel on Accuracy"
+# )
 
-
-# accuracy_dict_svm = {
-#     'kernel': [],
-#     'accuracy': []
-# }
-
-# for kernel in ['linear', 'poly', 'rbf']:
-#     svm = SVC(kernel=kernel, random_state=0)
-#     svm.fit(X_train_scaled, y_train)
-#     y_pred = svm.predict(X_test_scaled)
-#     accuracy = accuracy_score(y_test, y_pred)
-#     accuracy_dict_svm['kernel'].append(kernel)
-#     accuracy_dict_svm['accuracy'].append(accuracy)
-
-# plt.plot(accuracy_dict_svm['kernel'], accuracy_dict_svm['accuracy'],  'o-')
-# plt.xlabel('kernel')
-# plt.ylabel('accuracy')
-# plt.title('SVM accuracy vs. kernel')
-# plt.grid()
-# plt.show()
-
-
-# # Accuracy on test dataset with best hyperparameters for each model
 # decision_tree = DecisionTreeClassifier(**best_params_decision_tree, random_state=0)
 # decision_tree.fit(X_train_scaled, y_train)
 # y_pred_dt = decision_tree.predict(X_test_scaled)
@@ -176,7 +163,6 @@ grid_svm, best_params_svm, best_score_svm = perform_grid_search(
 # y_pred_svm = svm.predict(X_test_scaled)
 # accuracy_svm = accuracy_score(y_test, y_pred_svm)
 
-# # Plot the accuracy of the models on the test dataset and add scores on top of the bars and add colors
 # fig, ax = plt.subplots()
 # models = ['Decision Tree', 'Random Forest', 'SVM']
 # accuracy = [accuracy_dt, accuracy_rf, accuracy_svm]
