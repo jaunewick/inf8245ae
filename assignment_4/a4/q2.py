@@ -36,7 +36,8 @@ class MLP(Layer):
             seed (int): seed for random number generation
         """
         # BEGIN SOLUTIONS
-        pass
+        for layer in self.layers:
+            layer.init_weights()
         # END SOLUTIONS
 
             
@@ -51,10 +52,13 @@ class MLP(Layer):
                                 (NOTE: input_size is the size of the input of the first layer)
         Returns:
             output (np.ndarray): output of the MLP, shape: (batch_size, output_size)
-                                 (NOTE: output_size is the size of the output of the last layer)
+                                (NOTE: output_size is the size of the output of the last layer)
         """
         # BEGIN SOLUTIONS
-        pass
+        self.output = input
+        for layer in self.layers:
+            self.output = layer.forward(self.output)
+        return self.output
         # END SOLUTIONS
 
     def backward(self, output_grad):
@@ -68,7 +72,10 @@ class MLP(Layer):
             input_grad (np.ndarray): gradient of the input of the MLP (dx)
         """
         # BEGIN SOLUTIONS
-        pass
+        output_grad = output_grad
+        for layer in reversed(self.layers):
+            output_grad = layer.backward(output_grad)
+        return output_grad
         # END SOLUTIONS
 
     def update(self, learning_rate):
@@ -83,5 +90,7 @@ class MLP(Layer):
         assert hasattr(self, 'layer_grads'), \
             'must compute gradient of weights beforehand'
         # BEGIN SOLUTIONS
-        pass
+        for layer in self.layers:
+            if isinstance(layer, Dense):
+                layer.update(learning_rate)
         # END SOLUTIONS
