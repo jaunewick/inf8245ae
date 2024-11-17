@@ -294,10 +294,10 @@ class CrossEntropyLossLayer(Layer):
             output (float): cross entropy loss, averaged over the batch
         """
         # BEGIN SOLUTION
-        self.prediction = prediction
         self.target = target
         self.batch_size = prediction.shape[0]
-        self.output = -np.sum(np.log(prediction[np.arange(self.batch_size), target])) / self.batch_size
+        self.prediction = np.exp(prediction) / np.sum(np.exp(prediction), axis=1, keepdims=True)
+        self.output = -np.sum(np.log(self.prediction[np.arange(self.batch_size), target])) / self.batch_size
         return self.output
         # END SOLUTION
 
@@ -310,7 +310,9 @@ class CrossEntropyLossLayer(Layer):
             input_grad (np.ndarray): gradient of the input of the layer (dx), shape: (batch_size, num_classes)
         """
         # BEGIN SOLUTION
-        input_grad = np.zeros_like(self.prediction)
-        input_grad[np.arange(self.batch_size), self.target] = -1 / self.batch_size
-        return input_grad
+        batch_size = self.prediction.shape[0]
+        input_grad = self.prediction
+        input_grad[np.arange(batch_size), self.target] -= 1
+        input_grad /= batch_size
+        return input_grad * output_grad
         # END SOLUTION
