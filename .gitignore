@@ -2,3 +2,11 @@
 **.venv
 **__pycache__/
 **dataset
+assignment_4/a4/data/FashionMNIST/raw/t10k-images-idx3-ubyte
+assignment_4/a4/data/FashionMNIST/raw/t10k-images-idx3-ubyte.gz
+assignment_4/a4/data/FashionMNIST/raw/t10k-labels-idx1-ubyte
+assignment_4/a4/data/FashionMNIST/raw/t10k-labels-idx1-ubyte.gz
+assignment_4/a4/data/FashionMNIST/raw/train-images-idx3-ubyte
+assignment_4/a4/data/FashionMNIST/raw/train-images-idx3-ubyte.gz
+assignment_4/a4/data/FashionMNIST/raw/train-labels-idx1-ubyte
+assignment_4/a4/data/FashionMNIST/raw/train-labels-idx1-ubyte.gz

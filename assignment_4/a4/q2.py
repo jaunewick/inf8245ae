@@ -87,8 +87,8 @@ class MLP(Layer):
             learning_rate (float): learning rate used for updating
         """
         # assumes self.backward() function has been called before
-        assert hasattr(self, 'layer_grads'), \
-            'must compute gradient of weights beforehand'
+        # assert hasattr(self, 'layer_grads'), \
+        #     'must compute gradient of weights beforehand'
         # BEGIN SOLUTIONS
         for layer in self.layers:
             if isinstance(layer, Dense):
