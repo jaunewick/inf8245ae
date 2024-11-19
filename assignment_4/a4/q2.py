@@ -31,7 +31,7 @@ class MLP(Layer):
     def init_weights(self):
         """
         Initialize the weights of the MLP.
-        By default, each Dense layer will use the Kaiming initialization.
+        By default, each Dense layer will use the aiming initialization.
         Parameters:
             seed (int): seed for random number generation
         """
