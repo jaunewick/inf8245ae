@@ -64,7 +64,7 @@ class FashionMNIST:
 
 # PyTorch model
 def create_pytorch_model(hidden1, hidden2=None):
-    if hidden2 is None:  # Single hidden layer configuration
+    if hidden2 is None:
         return nn.Sequential(
             nn.Linear(28 * 28, hidden1),
             nn.ReLU(),
@@ -83,7 +83,7 @@ def create_pytorch_model(hidden1, hidden2=None):
 
 # Custom model
 def create_custom_model(hidden1, hidden2=None):
-    if hidden2 is None:  # Single hidden layer configuration
+    if hidden2 is None:
         return MLP([
             Dense(28 * 28, hidden1),
             ReLULayer(),
@@ -107,7 +107,6 @@ def run_experiment(configurations, dataset, model_type="pytorch", lr=1e-2, epoch
         hidden1, hidden2 = config
         print(f"Running {model_type} with hidden sizes: {hidden1}, {hidden2}")
 
-        # Create model
         if model_type == "pytorch":
             model = create_pytorch_model(hidden1, hidden2)
             optimizer = optim.SGD(model.parameters(), lr=lr)
@@ -116,7 +115,6 @@ def run_experiment(configurations, dataset, model_type="pytorch", lr=1e-2, epoch
             model = create_custom_model(hidden1, hidden2)
             criterion = CrossEntropyLossLayer()
 
-        # Training and validation
         start_time = time.time()
         train_losses = []
         val_accuracies = []
@@ -174,22 +172,19 @@ def run_experiment(configurations, dataset, model_type="pytorch", lr=1e-2, epoch
         })
     return results
 
-# Configurations
 hidden_size1_variants = [8, 16, 64, 1024]
 hidden_size2_variants = [8, 16, 64, 1024]
-remove_layer_config = [(256, None)]  # Only one hidden layer
+remove_layer_config = [(256, None)]
 
 configurations = [(h1, 128) for h1 in hidden_size1_variants] + \
                  [(256, h2) for h2 in hidden_size2_variants] + \
                  remove_layer_config
 
-# Run experiments
 if __name__ == '__main__':
     dataset = FashionMNIST(batch_size=64, val_perc=0.2)
     pytorch_results = run_experiment(configurations, dataset, model_type="pytorch", lr=1e-2, epochs=20)
     custom_results = run_experiment(configurations, dataset, model_type="custom", lr=1e-2, epochs=20)
 
-    # Display results
     import pandas as pd
     results_df = pd.DataFrame(pytorch_results + custom_results)
     results_df["Model"] = ["PyTorch"] * len(pytorch_results) + ["Custom"] * len(custom_results)
